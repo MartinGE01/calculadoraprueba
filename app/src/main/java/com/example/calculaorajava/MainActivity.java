@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.calculaorajava.R;
 
@@ -244,10 +245,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String val = tvmain.getText().toString();
-                String replacedstr = val.replace('÷','/').replace('×','*');
-                double result = eval(replacedstr);
-                tvmain.setText(String.valueOf(result));
-                tvsec.setText(val);
+
+                // Verifica si el TextView principal está vacío
+                if (val.isEmpty()) {
+                    // Si está vacío, muestra un mensaje indicando que no se han ingresado números
+                    Toast.makeText(getApplicationContext(), "Por favor, ingrese números", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Si no está vacío, realiza la evaluación de la expresión matemática
+                    String replacedstr = val.replace('÷','/').replace('×','*');
+                    double result = eval(replacedstr);
+                    tvmain.setText(String.valueOf(result));
+                    tvsec.setText(val);
+                }
             }
         });
 
