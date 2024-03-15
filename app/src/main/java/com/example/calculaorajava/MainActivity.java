@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.example.calculaorajava.R;
 
 public class MainActivity extends AppCompatActivity {
+
+
     Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b0,bdot,bpi,bequal,bplus,bmin,bmul,bdiv,binv,bsqrt,bsquare,bfact,bln,blog,btan,bcos,bsin,bb1,bb2,bc,bac;
     TextView tvmain,tvsec;
     String pi = "3.14159265";
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 tvsec.setText("");
             }
         });
+
         bc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,11 +169,24 @@ public class MainActivity extends AppCompatActivity {
         bsqrt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String val = tvmain.getText().toString();
-                double r = Math.sqrt(Double.parseDouble(val));
-                tvmain.setText(String.valueOf(r));
+                try {
+                    String val = tvmain.getText().toString();
+                    double number = Double.parseDouble(val);
+
+                    // Verifica si el número es negativo
+                    if (number < 0) {
+                        Toast.makeText(getApplicationContext(), "No se puede calcular la raíz cuadrada de un número negativo", Toast.LENGTH_SHORT).show();
+                    } else {
+                        double squareRoot = Math.sqrt(number);
+                        tvmain.setText(String.valueOf(squareRoot));
+                    }
+                } catch (NumberFormatException e) {
+                    // Si ocurre un error al intentar convertir el texto a un número, muestra un mensaje de advertencia
+                    Toast.makeText(getApplicationContext(), "Ingrese un número válido", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
         bb1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
