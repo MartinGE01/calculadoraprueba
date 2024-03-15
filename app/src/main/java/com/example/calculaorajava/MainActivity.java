@@ -251,11 +251,16 @@ public class MainActivity extends AppCompatActivity {
                     // Si está vacío, muestra un mensaje indicando que no se han ingresado números
                     Toast.makeText(getApplicationContext(), "Por favor, ingrese números", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Si no está vacío, realiza la evaluación de la expresión matemática
-                    String replacedstr = val.replace('÷','/').replace('×','*');
-                    double result = eval(replacedstr);
-                    tvmain.setText(String.valueOf(result));
-                    tvsec.setText(val);
+                    try {
+                        // Intenta evaluar la expresión matemática
+                        String replacedstr = val.replace('÷','/').replace('×','*');
+                        double result = eval(replacedstr);
+                        tvmain.setText(String.valueOf(result));
+                        tvsec.setText(val);
+                    } catch (Exception e) {
+                        // Si ocurre un error durante la evaluación, muestra un mensaje indicando que la expresión es inválida
+                        Toast.makeText(getApplicationContext(), "Ejercicio mal propuesto", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
