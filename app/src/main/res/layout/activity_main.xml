@@ -204,7 +204,18 @@
             android:textSize="24sp"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/white" />
-
+        <!-- Clear button -->
+        <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:text="C"
+            android:textSize="24sp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:onClick="clearAll" />
     </GridLayout>
 
 </LinearLayout>

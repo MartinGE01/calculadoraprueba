@@ -2,12 +2,11 @@ package com.example.calculaorajava;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.example.calculaorajava.R;
 
 import java.text.DecimalFormat;
 
@@ -19,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private String operator = "";
     private boolean isNewEntry = true;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.buttonEqual).setOnClickListener(view -> calculateResult());
 
         // Clear button
-
+        findViewById(R.id.buttonClear).setOnClickListener(view -> clearAll());
     }
 
     private void appendNumber(String number) {
