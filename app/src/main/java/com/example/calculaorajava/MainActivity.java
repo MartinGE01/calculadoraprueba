@@ -115,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
                 tvmain.setText(tvmain.getText()+"0");
             }
         });
+
+
+
         bdot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,21 +217,62 @@ public class MainActivity extends AppCompatActivity {
         bfact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int val = Integer.parseInt(tvmain.getText().toString());
-                int fact = factorial(val);
-                tvmain.setText(String.valueOf(fact));
-                tvsec.setText(val+"!");
+                String valStr = tvmain.getText().toString();
+
+                // Verifica si el TextView principal está vacío o no contiene un número válido
+                if (valStr.isEmpty() || !isNumeric(valStr)) {
+                    // Si está vacío o no contiene un número válido, muestra una advertencia
+                    Toast.makeText(getApplicationContext(), "Por favor, ingrese un número válido", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        int val = Integer.parseInt(valStr);
+
+                        // Verifica si el número ingresado es negativo
+                        if (val < 0) {
+                            Toast.makeText(getApplicationContext(), "El factorial de un número negativo no está definido", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Calcula el factorial solo si el número es válido
+                            int fact = factorial(val);
+                            tvmain.setText(String.valueOf(fact));
+                            tvsec.setText(val + "!");
+                        }
+                    } catch (NumberFormatException e) {
+                        // Si ocurre un error al intentar convertir el texto a un entero, muestra una advertencia
+                        Toast.makeText(getApplicationContext(), "Entrada no válida para factorial", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            // Método para verificar si una cadena es numérica
+            private boolean isNumeric(String str) {
+                return str.matches("-?\\d+(\\.\\d+)?"); // Verifica si la cadena contiene solo dígitos
+            }
+
+            // Método para calcular el factorial de un número
+            private int factorial(int n) {
+                if (n == 0)
+                    return 1;
+                else
+                    return n * factorial(n - 1);
             }
         });
+
+
         bsquare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double d = Double.parseDouble(tvmain.getText().toString());
-                double square = d*d;
-                tvmain.setText(String.valueOf(square));
-                tvsec.setText(d+"²");
+                try {
+                    double d = Double.parseDouble(tvmain.getText().toString());
+                    double square = d * d;
+                    tvmain.setText(String.valueOf(square));
+                    tvsec.setText(d + "²");
+                } catch (NumberFormatException e) {
+                    // Si ocurre un error al intentar convertir el texto a un número, muestra un mensaje de advertencia
+                    Toast.makeText(getApplicationContext(), "Ingrese un número válido", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+        ;
         bln.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -299,17 +343,13 @@ public class MainActivity extends AppCompatActivity {
                 return x;
             }
 
-            // Grammar:
-            // expression = term | expression `+` term | expression `-` term
-            // term = factor | term `*` factor | term `/` factor
-            // factor = `+` factor | `-` factor | `(` expression `)`
-            //        | number | functionName factor | factor `^` factor
+
 
             double parseExpression() {
                 double x = parseTerm();
                 for (;;) {
-                    if      (eat('+')) x += parseTerm(); // addition
-                    else if (eat('-')) x -= parseTerm(); // subtraction
+                    if      (eat('+')) x += parseTerm();
+                    else if (eat('-')) x -= parseTerm();
                     else return x;
                 }
             }

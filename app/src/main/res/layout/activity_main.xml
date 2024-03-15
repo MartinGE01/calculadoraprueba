@@ -30,7 +30,7 @@
         android:background="#000"
         android:text=""
         android:textColor="#fff"
-        android:textSize="50sp"
+        android:textSize="30sp"
         android:textAlignment="viewEnd"
         android:padding="10dp"
         android:gravity="bottom"
