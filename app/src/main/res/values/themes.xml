@@ -22,7 +22,7 @@
         <item name="android:textSize">27sp</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">18dp</item>
-
+        <item name="android:background">@drawable/shape1</item>
     </style>
 
     <style name="Theme.Calculaorajava" parent="Base.Theme.Calculaorajava" />
